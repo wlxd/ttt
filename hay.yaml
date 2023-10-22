@@ -1,0 +1,263 @@
+#甬哥Github项目  ：github.com/yonggekkk
+#甬哥Blogger博客 ：ygkkk.blogspot.com
+#甬哥YouTube频道 ：www.youtube.com/@ygkkk
+#====clash-meta精简配置文件模版（V23.8.31）=====
+#====参考自clash-meta官方文档：wiki.metacubex.one=====
+
+#（一区）=============================（clash配置）
+#dns可自行修改
+port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+unified-delay: true
+global-client-fingerprint: chrome
+dns:
+  enable: true
+  listen: :53
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver: 
+    - 223.5.5.5
+    - 8.8.8.8
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.0.0.1/dns-query
+    - tls://dns.google
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+
+
+#（二区）==============================（代理协议）
+#当前12个协议节点配置模版，按需求修改，如某协议节点不用，则无需删除，确保三区代理分流中没有该name节点名称即可
+proxies:
+#==============================（vless-ws-tls节点）
+- name: lw.wlxdyeah.tk                           #可自定义名称
+  type: vless
+  server: 47.243.162.49                          #解析的域名或者优选域名IP
+  port: 443                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+#==============================（vless-ws-tls节点）
+- name: 3.wlxdyeah.tk                           #可自定义名称
+  type: vless
+  server: 3.wlxdyeah.tk                         #解析的域名或者优选域名IP
+  port: 2083                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+#==============================（vless-ws-tls节点）
+- name: 5.wlxdyeah.tk                           #可自定义名称
+  type: vless
+  server: 5.wlxdyeah.tk                          #解析的域名或者优选域名IP
+  port: 2083                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+#==============================（vless-ws-tls节点）
+- name: japan.com                           #可自定义名称
+  type: vless
+  server: japan.com                          #解析的域名或者优选域名IP
+  port: 8443                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+#==============================（vless-ws-tls节点）
+- name: ld.lw100.work.gd                          #可自定义名称
+  type: vless
+  server: ld.lw100.work.gd                         #解析的域名或者优选域名IP
+  port: 443                                      #自定义的端口
+  uuid: 514a8e64-10cb-46cb-b767-de9ce6fb9b65       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: ld.laowang1133.repl.co                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/514a8e64-10cb-46cb-b767-de9ce6fb9b65-vl"                              #" "内自定义的path路径
+    headers:
+      Host: ld.laowang1133.repl.co                       #host域名，与上面的servername一致
+
+#==============================（vmess-ws节点）
+- name: tt.wlxd.repl.co                               #可自定义名称
+  type: vmess
+  server: tt.wlxd.repl.co                          #解析的域名或者优选域名IP
+  port: 443                                       #自定义的端口
+  uuid: 1138f0fa-415e-4673-91d0-371f076c2b20       #自定义的uuid
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  network: ws
+  servername: tt.wlxd.repl.co                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/1138f0fa-415e-4673-91d0-371f076c2b20-vm"                              #" "内自定义的path路径
+    headers:
+      Host: tt.wlxd.repl.co                       #host域名，与上面的servername一致
+
+#==============================（vless-ws节点）
+- name: www.lw100.line.pm                               #可自定义名称
+  type: vless
+  server: www.lw100.line.pm                         #解析的域名或者优选域名IP
+  port: 443                                       #自定义的端口
+  uuid: 1138f0fa-415e-4673-91d0-371f076c2b20       #自定义的uuid
+  udp: true
+  tls: false
+  network: ws
+  servername: tt.wlxd.repl.co                    #sni域名，与下面的host一致
+  ws-opts:
+    path: "/1138f0fa-415e-4673-91d0-371f076c2b20-vl"                              #" "内自定义的path路径
+    headers:
+      Host: tt.wlxd.repl.co                      #host域名，与上面的servername一致
+
+#==============================（hysteria自签节点）
+- name: hysteria1                           #可自定义名称
+  type: hysteria
+  server: 167.160.91.115                                  #服务器本地IP
+  port: 13928                                      #自定义的端口，多端口改为 ports:空格1000,2000-3000
+  auth-str: BF0LL4L2jlqSdW3KxjQv81AiFFjj90vWRHeUoqUuTVPeDAGvq3                                 #自定义的密码
+  alpn:
+    - h3
+  protocol: udp                                    #自定义协议：udp/wechat-video/faketcp
+  up: 20                                           #自定义的上传限制
+  down: 200                                        #自定义的下载限制
+  sni: paypal.com                                
+  skip-cert-verify: true
+  fast-open: true
+    
+#==============================（hysteria自签节点）
+- name: hysteria2                           #可自定义名称
+  type: hysteria
+  server: 51.158.54.46                                  #服务器本地IP
+  port: 11926                                      #自定义的端口，多端口改为 ports:空格1000,2000-3000
+  auth-str: Trz2alKwzCImRAXI3nXfpo1ylpHfqOL8s1vageWKoyjjvWeMVs                                 #自定义的密码
+  alpn:
+    - h3
+  protocol: udp                                    #自定义协议：udp/wechat-video/faketcp
+  up: 11                                           #自定义的上传限制
+  down: 55                                        #自定义的下载限制
+  sni: youku.com                                
+  skip-cert-verify: true
+  fast-open: true
+
+#==============================（hysteria自签节点）
+- name: hysteria3                           #可自定义名称
+  type: hysteria
+  server: 173.234.25.52                                  #服务器本地IP
+  port: 20164                                      #自定义的端口，多端口改为 ports:空格1000,2000-3000
+  auth-str: Ljg6NNEATDqP97hdAdHe1lJv7ggtKc0h7zmCCZKCX3qY0LR64F                                 #自定义的密码
+  alpn:
+    - h3
+  protocol: udp                                    #自定义协议：udp/wechat-video/faketcp
+  up: 20                                           #自定义的上传限制
+  down: 200                                        #自定义的下载限制
+  sni: www.microsoft.com                                
+  skip-cert-verify: true
+  fast-open: true    
+
+#==============================（warp-wireguard节点）  
+- name: warp-wireguard节点1                                   #可自定义名称
+  type: wireguard         
+  server: 188.114.96.185                                     #可自定义优选对端IP，与下面port的端口相对应
+  port: 3476                                                 #可自定义优选对端IP，与上面server的IP相对应
+  ip: 172.16.0.2
+  ipv6: 2606:4700:110:8651:debe:c936:3413:4708               #与private-key相对应，如删除本行，表示仅IPV4
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  private-key: cPN1rP4nxlYwV2B/j51DulpJQORQHjQVo513LGr7L24=  #获取private-key，私key
+  udp: true
+
+#==============================（warp-wireguard节点）  
+- name: warp-wireguard节点2                                   #可自定义名称
+  type: wireguard         
+  server: 188.114.98.59                                     #可自定义优选对端IP，与下面port的端口相对应
+  port: 942                                                 #可自定义优选对端IP，与上面server的IP相对应
+  ip: 172.16.0.2
+  ipv6: 2606:4700:110:84fa:82be:d6a0:1f82:efd               #与private-key相对应，如删除本行，表示仅IPV4
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  private-key: ALUOxT+7wtM3U2gb9amzzf8xgPpTepoqhaV+FWWX0HU=  #获取private-key，私key
+  udp: true
+
+#（三区）==============================（代理分流）
+#分流组可自行创建添加，proxies参数下的name节点名称，按需求自行增减，确保出现的name节点名称在二区代理协议中可查找
+proxy-groups:
+- name: 负载均衡
+  type: load-balance
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  proxies:
+    - hysteria1                                    
+    - hysteria2
+    - hysteria3
+    - warp-wireguard节点1
+    - warp-wireguard节点2
+
+- name: 自动选择
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+    - hysteria1                                    
+    - hysteria2
+    - hysteria3
+    - warp-wireguard节点1
+    - warp-wireguard节点2
+    
+- name: 🌍选择代理节点
+  type: select
+  proxies:
+    - 负载均衡                                            #自定义添加协议的name字段
+    - 自动选择
+    - DIRECT
+    - hysteria1                                    
+    - hysteria2
+    - hysteria3
+    - lw.wlxdyeah.tk
+    - 3.wlxdyeah.tk
+    - 5.wlxdyeah.tk
+    - japan.com
+    - ld.lw100.work.gd
+    - tt.wlxd.repl.co
+    - www.lw100.line.pm
+    - warp-wireguard节点1
+    - warp-wireguard节点2
+
+#（四区）==============================（代理规则）
+#代理规则可自行添加 
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,🌍选择代理节点
