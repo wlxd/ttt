@@ -1,0 +1,410 @@
+# DNS 配置可自行修改
+port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+unified-delay: true
+global-client-fingerprint: chrome
+dns:
+  enable: true
+  listen: :53
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver: 
+    - 223.5.5.5
+    - 8.8.8.8
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.0.0.1/dns-query
+    - tls://dns.google
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+
+# 当前 13 个主流协议节点配置模版，按需求修改，如不需要使用某协议节点，则无需删除，确保代理分流中没有该节点即可
+proxies:
+- name: vless-reality-vision                  # 可以自定义节点名称
+  type: vless
+  server: 1.2.3.4                             # 解析的域名或IP
+  port: 12345                                 # 自定义端口
+  uuid: f897325d-053d-45d1-899c-566692331f8   # 自定义 UUID
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: sega.com                        # 自定义回落域名
+  reality-opts: 
+    public-key: 4CiE7y7ZPBXIZWzMwphuSH7qdZyisNjD3CDQGjmilmI    # Reality public-key
+    short-id: a8c031ce                        # Reality short-id
+  client-fingerprint: chrome                  # 自定义浏览器指纹
+
+- name: vless-reality-grpc                      # 可以自定义节点名称
+  type: vless
+  server: 1.2.3.4                               # 解析的域名或IP
+  port: 12345                                   # 自定义端口
+  uuid: 335ec5dd-61b1-4413-980e-5e009968f633    # 自定义 UUID
+  network: grpc
+  tls: true
+  udp: true
+  flow:
+  client-fingerprint: chrome                    # 自定义浏览器指纹
+  servername: sega.com                          # 自定义回落域名
+  grpc-opts:
+    grpc-service-name: "misaka"                 # 自定义的字符
+  reality-opts:
+    public-key: Aqp9oy2EFi4NNfRMZa3I3HdGhHbOIiSDZ8L28UCF73k    # Reality public-key
+    short-id: 24410d1c                          # Reality short-id
+
+- name: vless-xtls-rprx-vision                 # 可以自定义节点名称
+  type: vless
+  server: www.misaka.rest                      # 解析的域名
+  port: 12345                                  # 自定义端口
+  uuid: 5f74f86b-3ee8-44f4-adc4-6666be3d315    # 自定义 UUID
+  network: tcp
+  tls: true
+  udp: true
+  flow: xtls-rprx-vision
+  client-fingerprint: chrome
+
+- name: vless-ws-tls                               # 可以自定义节点名称
+  type: vless
+  server: www.misaka.rest                          # 解析的 IP / 域名或优选 IP / 域名
+  port: 12345                                      # 自定义端口
+  uuid: 3cc9a51c-db76-4ad2-a76b-8cb993bddb73       # 自定义 UUID
+  udp: true
+  tls: true
+  network: ws
+  servername: www.misaka.rest                      # SNI 域名，与下面 Host 一致
+  ws-opts:
+    path: "/?ed=2048"                              # 自定义 path 路径
+    headers:
+      Host: www.misaka.rest                        # Host 域名，与上面 server 字段的地址一致
+
+- name: 3.wlxdyeah.tk                           #可自定义名称
+  type: vless
+  server: 3.wlxdyeah.tk                         #解析的域名或者优选域名IP
+  port: 2083                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+- name: 5.wlxdyeah.tk                           #可自定义名称
+  type: vless
+  server: 5.wlxdyeah.tk                          #解析的域名或者优选域名IP
+  port: 2083                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+- name: japan.com                           #可自定义名称
+  type: vless
+  server: japan.com                          #解析的域名或者优选域名IP
+  port: 8443                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: lw.wlxdyeah.tk                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/?ed=2048"                              #" "内自定义的path路径
+    headers:
+      Host: lw.wlxdyeah.tk                       #host域名，与上面的servername一致
+
+- name: glitch-sina                           #可自定义名称
+  type: vless
+  server: gl5.wlxdyeah.gq                          #解析的域名或者优选域名IP
+  port: 443                                      #自定义的端口
+  uuid: 6a687c7b-54a2-4981-8149-6c75d65a874e       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: gl5.wlxdyeah.gq                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/"                              #" "内自定义的path路径
+    headers:
+      Host: gl5.wlxdyeah.gq                       #host域名，与上面的servername一致
+
+- name: glitch-2004                           #可自定义名称
+  type: vless
+  server: gl.wlxdyeah.gq                          #解析的域名或者优选域名IP
+  port: 443                                      #自定义的端口
+  uuid: a3cdf138-ec74-4fd1-9bac-90966d32d13d       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: gl.wlxdyeah.gq                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/"                              #" "内自定义的path路径
+    headers:
+      Host: gl.wlxdyeah.gq                       #host域名，与上面的servername一致            
+
+- name: ld.lw100.work.gd                          #可自定义名称
+  type: vless
+  server: ld.lw100.work.gd                         #解析的域名或者优选域名IP
+  port: 443                                      #自定义的端口
+  uuid: 514a8e64-10cb-46cb-b767-de9ce6fb9b65       #自定义的uuid
+  udp: true
+  tls: true
+  network: ws
+  servername: ld.laowang1133.repl.co                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/514a8e64-10cb-46cb-b767-de9ce6fb9b65-vl"                              #" "内自定义的path路径
+    headers:
+      Host: ld.laowang1133.repl.co                       #host域名，与上面的servername一致
+
+- name: tt.opt.cloudns.cl                               #可自定义名称
+  type: vless
+  server: tt.opt.cloudns.cl                         #解析的域名或者优选域名IP
+  port: 443                                       #自定义的端口
+  uuid: 1138f0fa-415e-4673-91d0-371f076c2b20       #自定义的uuid
+  udp: true
+  tls: false
+  network: ws
+  servername: tt.wlxd.repl.co                    #sni域名，与下面的host一致
+  ws-opts:
+    path: "/1138f0fa-415e-4673-91d0-371f076c2b20-vl"                              #" "内自定义的path路径
+    headers:
+      Host: tt.wlxd.repl.co                      #host域名，与上面的servername一致
+
+
+- name: vmess-tt                               #可自定义名称
+  type: vmess
+  server: tt.opt.cloudns.cl                          #解析的域名或者优选域名IP
+  port: 443                                       #自定义的端口
+  uuid: 1138f0fa-415e-4673-91d0-371f076c2b20       #自定义的uuid
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  network: ws
+  servername: tt.wlxd.repl.co                     #sni域名，与下面的host一致
+  ws-opts:
+    path: "/1138f0fa-415e-4673-91d0-371f076c2b20-vm"                              #" "内自定义的path路径
+    headers:
+      Host: tt.wlxd.repl.co                       #host域名，与上面的servername一致
+
+- name: trojan-tt                             # 可以自定义节点名称
+  type: trojan
+  server: tt.opt.cloudns.cl                          # 解析的域名
+  port: 443                                      # 自定义端口
+  password: 1138f0fa-415e-4673-91d0-371f076c2b20                              # 自定义认证密码
+  client-fingerprint: chrome
+  udp: true
+  sni: tt.wlxd.repl.co                             # SNI 域名，与上面 server 字段的地址一致
+  alpn:
+    - h2
+    - http/1.1
+  skip-cert-verify: false
+
+- name: shadowsocks                                # 可以自定义节点名称
+  type: ss
+  server: www.misaka.rest                          # 解析的 IP / 域名
+  port: 443                                        # 自定义端口
+  cipher: aes-128-gcm                              # 自定义加密方式，详细请查阅 Clash Meta 文档
+  password: password                               # 自定义认证密码
+  udp: true
+  udp-over-tcp: false
+  udp-over-tcp-version: 2
+  ip-version: ipv4                                 # IP 协议版本，如节点 IP 为 IPv6 则填写 ipv6
+  smux:
+    enabled: false
+
+- name: shadowsocks-shadowtls                      # 可以自定义节点名称
+  type: ss
+  server: 1.2.3.4                                  # 服务器本地 IP
+  port: 443                                        # 自定义端口
+  cipher: aes-128-gcm                              # 自定义加密方式，详细请查阅 Clash Meta 文档
+  password: password                               # 自定义认证密码
+  udp: true
+  udp-over-tcp: false
+  udp-over-tcp-version: 2
+  ip-version: ipv4                                 # IP 协议版本，如节点 IP 为 IPv6 则填写 ipv6
+  smux:
+    enabled: false
+  plugin: shadow-tls
+  client-fingerprint: chrome                       # 自定义浏览器指纹
+  plugin-opts:
+    host: cloud.tencent.com                        # 自签证书的三方域名
+    password: shadow_tls_password                  # ShadowTLS 认证密码
+    version: 3                                     # ShadowTLS 协议，支持 1 / 2 / 3
+    
+- name: hysteria1-1                           #可自定义名称
+  type: hysteria
+  server: 167.160.91.115                                  #服务器本地IP
+  port: 13928                                      #自定义的端口，多端口改为 ports:空格1000,2000-3000
+  auth-str: BF0LL4L2jlqSdW3KxjQv81AiFFjj90vWRHeUoqUuTVPeDAGvq3                                 #自定义的密码
+  alpn:
+    - h3
+  protocol: udp                                    #自定义协议：udp/wechat-video/faketcp
+  up: 20                                           #自定义的上传限制
+  down: 200                                        #自定义的下载限制
+  sni: paypal.com                                
+  skip-cert-verify: true
+  fast-open: true
+    
+- name: hysteria1-2                           #可自定义名称
+  type: hysteria
+  server: 51.158.54.46                                  #服务器本地IP
+  port: 11926                                      #自定义的端口，多端口改为 ports:空格1000,2000-3000
+  auth-str: Trz2alKwzCImRAXI3nXfpo1ylpHfqOL8s1vageWKoyjjvWeMVs                                 #自定义的密码
+  alpn:
+    - h3
+  protocol: udp                                    #自定义协议：udp/wechat-video/faketcp
+  up: 11                                           #自定义的上传限制
+  down: 55                                        #自定义的下载限制
+  sni: youku.com                                
+  skip-cert-verify: true
+  fast-open: true
+
+- name: hysteria1-3                           #可自定义名称
+  type: hysteria
+  server: 173.234.25.52                                  #服务器本地IP
+  port: 20164                                      #自定义的端口，多端口改为 ports:空格1000,2000-3000
+  auth-str: Ljg6NNEATDqP97hdAdHe1lJv7ggtKc0h7zmCCZKCX3qY0LR64F                                 #自定义的密码
+  alpn:
+    - h3
+  protocol: udp                                    #自定义协议：udp/wechat-video/faketcp
+  up: 20                                           #自定义的上传限制
+  down: 200                                        #自定义的下载限制
+  sni: www.microsoft.com                                
+  skip-cert-verify: true
+  fast-open: true    
+
+
+- name: hysteria2-1                                  # 节点名称
+  type: hysteria2
+  server: 108.181.22.155                                  # 服务器 IP
+  port: 63400                                       # 节点端口，目前暂不支持端口跳跃
+  password: dongtaiwang.com                               # 节点认证密码
+  sni: www.bing.com                             # SNI 域名或自签证书的三方域名
+  skip-cert-verify: true                           # 使用自签证书请保持此处为 true，如为 CA 证书建议修改为 false
+
+- name: hysteria2-2                                  # 节点名称
+  type: hysteria2
+  server: www.dtku48.xyz                                  # 服务器 IP
+  port: 14847                                       # 节点端口，目前暂不支持端口跳跃
+  password: dongtaiwang.com                               # 节点认证密码
+  sni: www.bing.com                             # SNI 域名或自签证书的三方域名
+  skip-cert-verify: true                           # 使用自签证书请保持此处为 true，如为 CA 证书建议修改为 false
+
+
+- name: tuic-V4                                    # 可以自定义节点名称
+  server: www.misaka.rest                          # 解析的域名或 IP
+  port: 12345                                      # 自定义端口
+  type: tuic
+  token: a806923b-737c-4581-8b13-56666f911866      # 自定义 Token
+  alpn: [h3]
+  disable-sni: true
+  reduce-rtt: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+
+- name: tuic-V5                                    # 可以自定义节点名称
+  server: www.misaka.rest                          # 解析的域名或 IP
+  port: 12345                                      # 自定义端口
+  type: tuic
+  uuid: a806923b-737c-4581-8b13-56666f911866       # 自定义 UUID
+  password: a806923b-737c-4581-8b13-56666f911866   # 自定义认证密码
+  alpn: [h3]
+  disable-sni: true
+  reduce-rtt: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+
+- name: warp-wireguard节点1                                   #可自定义名称
+  type: wireguard         
+  server: 188.114.96.185                                     #可自定义优选对端IP，与下面port的端口相对应
+  port: 3476                                                 #可自定义优选对端IP，与上面server的IP相对应
+  ip: 172.16.0.2
+  ipv6: 2606:4700:110:8091:e8fa:a660:36cf:2a8e               #与private-key相对应，如删除本行，表示仅IPV4
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  private-key: mJCEeoTkjECNumFvgLLBz3Ajl3HuL9QUGneWk3CRsEw=  #获取private-key，私key
+  udp: true
+
+- name: warp-wireguard节点2                                   #可自定义名称
+  type: wireguard         
+  server: 188.114.98.59                                     #可自定义优选对端IP，与下面port的端口相对应
+  port: 942                                                 #可自定义优选对端IP，与上面server的IP相对应
+  ip: 172.16.0.2
+  ipv6: 2606:4700:110:89b0:e38f:de43:4b50:fc94               #与private-key相对应，如删除本行，表示仅IPV4
+  public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+  private-key: WPPqv5y4s8jb+GcQcZbTSew3uWmyZZlhpTkwuayl6Ww=  #获取private-key，私key
+  udp: true
+
+# 分流组可自行创建或添加，proxies 参数下的节点名称，按需求自行增减，确保出现的节点名称在代理协议中可查找
+proxy-groups:
+- name: 负载均衡
+  type: load-balance
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  proxies:
+    - hysteria1-1                                    
+    - hysteria1-2
+    - hysteria1-3
+    - hysteria2-1
+    - hysteria2-2
+    - japan.com
+    - glitch-sina
+    - glitch-2004
+
+- name: 自动选择
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+    - hysteria1-1                                    
+    - hysteria1-2
+    - hysteria1-3
+    - hysteria2-1
+    - hysteria2-2
+    - japan.com
+    - glitch-sina
+    - glitch-2004
+    - warp-wireguard节点1
+    - warp-wireguard节点2
+    
+- name: 🌍选择代理
+  type: select
+  proxies:
+    - 负载均衡                                            # 自定义添加的节点名称
+    - 自动选择
+    - DIRECT
+    - hysteria1-1                                    
+    - hysteria1-2
+    - hysteria1-3
+    - hysteria2-1
+    - hysteria2-2
+    - 3.wlxdyeah.tk
+    - 5.wlxdyeah.tk
+    - japan.com
+    - glitch-sina
+    - glitch-2004
+    - ld.lw100.work.gd
+    - tt.opt.cloudns.cl 
+    - vmess-tt
+    - trojan-tt
+    - warp-wireguard节点1
+    - warp-wireguard节点2
+
+# 代理规则可自行添加 
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,🌍选择代理
